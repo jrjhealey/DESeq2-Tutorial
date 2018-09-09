@@ -1,94 +1,58 @@
 # DESeq2-Tutorial
 A transliteration of the DESeq2 Tutorial by Dave Wheeler which no long seems to be live, so I'm preserving it in case it disappears from the WaybackMachine.
 
-Uploaded by J. Healey, 9th September 2018. I may continue to tidy up and improve this transliteration over time.
+##### Uploaded by J. Healey, 9th September 2018. I may continue to tidy up and improve this transliteration over time.
 
-Disclaimer: I have not tested this workflow, and cannot vouch for the demo files, though I've bundled them in the repo too, however I have gone to the effort of sourcing and including the images which does not happen automatically on HTML -> .md conversion.
+##### Disclaimer: I have not tested this workflow, and cannot vouch for the demo files, though I've bundled them in the repo too, however I have gone to the effort of sourcing and including the images which does not happen automatically on HTML -> .md conversion.
 
-Additionally, I've moved all the comments on the thread to `comments.md` since it's a bit of a parsing nightmare, just in case there is useful information in there still.
+##### Additionally, I've moved all the comments on the thread to `comments.md` since it's a bit of a parsing nightmare, just in case there is useful information in there still.
 
-Feel free to post issues to discuss the walkthrough, but I'm no DeSeq expert, so I'll only be of limited help.
+##### Feel free to post issues to discuss the walkthrough, but I'm no DeSeq expert, so I'll only be of limited help.
 
-The links in this walkthrough are autoconverted to `waybackmachine` links, and some may not be archived so they links might not work correctly. If that's the case, take a look in the raw content of the readme, find the corresponding link, and strip off the string that looks like `https://web.archive.org/web/20160328234446/` from all of them, this should give you a normal `http` link to try (assuming the original is online too.)
+##### I also have not tested all the embedded links, so cannot speak for their intact-ness. I have removed their links to the WaybackMachine too, so some will work, while others will still be offline.
+
 
 Converted with https://github.com/aaronsw/html2text
 
-Originally posted on the [Dave Wheeler lab page.](https://web.archive.org/web/20160328234446/http://dwheelerau.com/)
-And originally retrieved via :
-https://web.archive.org/web/20160328234446/http://dwheelerau.com/2014/02/17/how-to-use-deseq2-to-analyse-rnaseq-data/
+Originally posted on the [Dave Wheeler lab page.](http://dwheelerau.com/)
+And originally retrieved via:
+http://dwheelerau.com/2014/02/17/how-to-use-deseq2-to-analyse-rnaseq-data/
 
 ---------
 
 # How to use DESeq2 to analyse RNAseq data
 
-Posted on [February 17, 2014](https://web.archive.org/web/20160328234446/http:
-//dwheelerau.com/2014/02/17/how-to-use-deseq2-to-analyse-rnaseq-data/) by
-[Dave Wheeler](https://web.archive.org/web/20160328234446/http://dwheelerau.co
-m/author/dwheelerau/)
+Posted on [February 17, 2014](http://dwheelerau.com/2014/02/17/how-to-use-deseq2-to-analyse-rnaseq-data/) by [Dave Wheeler](http://dwheelerau.com/author/dwheelerau/)
 
 __News:__ *My colleagues at NZGL have developed an open source R based GUI for
 generating plots using cuffdiff data. One for deseq2 will be available soon!
-Feel free to [check it out](https://web.archive.org/web/20160328234446/https:/
+Feel free to [check it out](https:/
 /github.com/NZGL/shiny_cuffdiff) and get back to us with any [suggestions](htt
 ps://web.archive.org/web/20160328234446/https://github.com/NZGL/shiny_cuffdiff
 /issues)*. *Only requires [R-studio](https://web.archive.org/web/2016032823444
 6/https://github.com/NZGL/shiny_cuffdiff)*.
 
-There is only one thing better than DESeq and thats DESeq2! The [updated versi
-on](https://web.archive.org/web/20160328234446/http://www.bioconductor.org/pac
-kages/2.13/bioc/html/DESeq2.html) is out and I’m keen to give it a whirl. Like
-with my old [DESeq post](https://web.archive.org/web/20160328234446/http://dwh
-eelerau.com/2013/04/15/how-to-use-deseq-to-analyse-rnaseq-data/), once again I
-am really just following the excellent [DESeq2 manual](https://web.archive.org
-/web/20160328234446/http://www.bioconductor.org/packages/2.13/bioc/vignettes/D
-ESeq2/inst/doc/DESeq2.pdf), thanks again to the authors for the great
+There is only one thing better than DESeq and thats DESeq2! The [updated version](http://www.bioconductor.org/packages/2.13/bioc/html/DESeq2.html) is out and I’m keen to give it a whirl. Like with my old [DESeq post](http://dwheelerau.com/2013/04/15/how-to-use-deseq-to-analyse-rnaseq-data/), once again I am really just following the excellent [DESeq2 manual](http://www.bioconductor.org/packages/2.13/bioc/vignettes/DESeq2/inst/doc/DESeq2.pdf), thanks again to the authors for the great
 documentation!
 
-Just a quick warning that I haven’t tested this workflow extensively, let me
-know if things don’t work. Also, DESeq2 is new so some of the function might
-have changed, so if you have problems makes sure you check what version you
-are using versus what I used (see sessionInfo below).
+Just a quick warning that I haven’t tested this workflow extensively, let me know if things don’t work. Also, DESeq2 is new so some of the function might have changed, so if you have problems makes sure you check what version you are using versus what I used (see sessionInfo below).
 
-The files I used for this are found [here](https://web.archive.org/web/2016032
-8234446/https://drive.google.com/file/d/0B6eVTdUN1IlwdnNiMkpvV1FWMUk/edit?usp=
-sharing) if you want to give them a go or follow along. I’ve already got a
-[blow by blow run through on how to do use DESeq](https://web.archive.org/web/
-20160328234446/http://dwheelerau.com/2013/04/15/how-to-use-deseq-to-analyse-
-rnaseq-data/) and much of that applies to the new package, so here I’ll just
-concentrate on some DESeq2 specific stuff as well as all the graphs. I’ve
-included some side by side comparisons between DESeq and DESeq2.
+The files I used for this are found [here](https://drive.google.com/file/d/0B6eVTdUN1IlwdnNiMkpvV1FWMUk/edit?usp=sharing) if you want to give them a go or follow along. I’ve already got a [blow by blow run through on how to do use DESeq](http://dwheelerau.com/2013/04/15/how-to-use-deseq-to-analyse-
+rnaseq-data/) and much of that applies to the new package, so here I’ll just concentrate on some DESeq2 specific stuff as well as all the graphs. I’ve included some side by side comparisons between DESeq and DESeq2.
 
 Installing is easy:
-
-
 
     source('http://bioconductor.org/biocLite.R')
     biocLite('DESeq2')
 
 
-One important change is that now you can directly create the count table using
-raw [HT-Seq-count](https://web.archive.org/web/20160328234446/http://www-
-huber.embl.de/users/anders/HTSeq/doc/count.html) output, and I’ll show you how
-to do that below. Remember HT-Seq-count will create a single file for each
-replicate of a condition (based on an SAM alignment file), so in my case with
-two conditions (control and treatment) and 3 reps each, that makes a total of
-6 files. I called these files treated1.txt, treated2.txt, treated3.txt,
-untreated1 untreated2, untreated3 so that i can use grep to import them
-(explained below). Previously i would use a script to merge them all together,
-now DESeq2 allows you to import these files directory.
+One important change is that now you can directly create the count table using raw [HT-Seq-count](http://www-huber.embl.de/users/anders/HTSeq/doc/count.html) output, and I’ll show you how to do that below. Remember HT-Seq-count will create a single file for each replicate of a condition (based on an SAM alignment file), so in my case with two conditions (control and treatment) and 3 reps each, that makes a total of 6 files. I called these files treated1.txt, treated2.txt, treated3.txt, untreated1 untreated2, untreated3 so that i can use grep to import them (explained below). Previously i would use a script to merge them all together, now DESeq2 allows you to import these files directory.
 
-Below I set the directory where the files are located; use grep to catch all
-these files based on the string match “treated” that they all share (be
-carefully it doesn’t catch anything else), this is stored in sampleFiles. If
-you like you could just directly specify the files using
-“sampleFiles<-c(“treated1.txt”,..etc..”untreated3.txt”). Importantly, we need
-to setup the sampleConditions, with the same order as that found for the file
-names in sampleFiles (so it knows what each files represents). Finally we make
-a dataframe that becomes a deseq table. Note my “#” lines are just
-nonfunctional comment lines that I am using to print out the output from the
-screen!
+Below I set the directory where the files are located; use grep to catch all these files based on the string match “treated” that they all share (be
+carefully it doesn’t catch anything else), this is stored in sampleFiles. If you like you could just directly specify the files using
+`sampleFiles<-c(“treated1.txt”,..etc..”untreated3.txt”)`.
 
-
+ Importantly, we need to setup the sampleConditions, with the same order as that found for the file names in sampleFiles (so it knows what each files represents). Finally we make a dataframe that becomes a deseq table. Note my “#” lines are just nonfunctional comment lines that I am using to print out the output from the screen!
 
     library('DESeq2')
     directory<-'/home/dwheeler/Desktop/BLOG/Dec_post2'
@@ -129,9 +93,7 @@ screen!
 
 The levels in colData are important because they are used in the log
 calculations; it makes sense to set untreated or control first so that the
-direction of the logs fold changes doesn’t confuse everyone (typically we do
-comparisons to the control)! Now for the guts of the DEseq2 analysis.
-
+direction of the logs fold changes doesn’t confuse everyone (typically we do comparisons to the control)! Now for the guts of the DEseq2 analysis.
 
 
     dds<-DESeq(ddsHTSeq)
@@ -157,8 +119,7 @@ comparisons to the control)! Now for the guts of the DEseq2 analysis.
     #seq_958  2.036971e-04
 
 
-Looking good, time for some plots. BTW I’m using the same dataset I used for
-the original DESeq blog post (links to data and that blog at top of page).
+Looking good, time for some plots. BTW I’m using the same dataset I used for the original DESeq blog post (links to data and that blog at top of page).
 
 
 
@@ -175,21 +136,9 @@ MAPlot of DESeq1 (left) and DESeq2 (right) for the same data
 As expected for this dataset there are not many differentially expressed genes
 (red). There certainly is a difference in the level of scatter with this
 dataset using DESeq and DESeq2. Also note that there is good reduction in
-scatter for low count reads (left hand side of the graph) in DESeq2 versus the
-original version. DESeq tends to be a conservative approach, I like that, and
-with that in mind the update uses a test called cooks distance to remove
-outliers from the analysis. [Cooks distance](https://web.archive.org/web/20160
-328234446/http://en.wikipedia.org/wiki/Cook's_distance) looks to see how much
-each sample contributes to a genes overall value fold change, with samples
-that cause extreme effects removed. To be specific, the gene will not be
-analysed for differential expression if one of its samples is considered an
-outlier. The idea being here that we want to see only DE genes that show a
-consistent pattern. The draw back of this approach is that there is a loss of
-power, as some genes that are truly DE will be removed before the statistical
-tests are performed.
+scatter for low count reads (left hand side of the graph) in DESeq2 versus the original version. DESeq tends to be a conservative approach, I like that, and with that in mind the update uses a test called cooks distance to remove outliers from the analysis. [Cooks distance](http://en.wikipedia.org/wiki/Cook's_distance) looks to see how much each sample contributes to a genes overall value fold change, with samples that cause extreme effects removed. To be specific, the gene will not be analysed for differential expression if one of its samples is considered an outlier. The idea being here that we want to see only DE genes that show a consistent pattern. The draw back of this approach is that there is a loss of power, as some genes that are truly DE will be removed before the statistical tests are performed.
 
-We can save the table, and also print out some information on what the columns
-mean.
+We can save the table, and also print out some information on what the columns mean.
 
 
 
@@ -215,14 +164,11 @@ mean.
     write.csv(as.data.frame(res),file='sim_condition_treated_results_deseq2.csv')
 
 
-BTW take this with a pinch of salt because its only a simple sample dataset,
-but the difference in gene counts is that deseq only found a single
+BTW take this with a pinch of salt because its only a simple sample dataset, but the difference in gene counts is that deseq only found a single
 differentially expressed gene (at padj 0.1), whilst deseq2 called this same
-gene plus 23 others.  Also, reducing the cut-off multiple testing correction
-to 0.05 only removes 3 genes from the list with DESeq2.
+gene plus 23 others.  Also, reducing the cut-off multiple testing correction to 0.05 only removes 3 genes from the list with DESeq2.
 
-Now we want to transform the raw discretely distributed counts so that we can
-do clustering.
+Now we want to transform the raw discretely distributed counts so that we can do clustering.
 
 
 
@@ -230,12 +176,7 @@ do clustering.
     vsd<-varianceStabilizingTransformation(dds, blind=TRUE)
 
 
-Here we choose blind so that the initial conditions setting does not influence
-the outcome, ie we want to see if the conditions cluster based purely on the
-individual datasets, in an unbiased way. According to the documentation, the
-rlogTransformation method that converts counts to log2 values is apparently
-better than the old varienceStabilisation method when the data size factors
-vary by large amounts.
+Here we choose blind so that the initial conditions setting does not influence the outcome, ie we want to see if the conditions cluster based purely on the individual datasets, in an unbiased way. According to the documentation, the `rlogTransformation` method that converts counts to log2 values is apparently better than the old varienceStabilisation method when the data size factors vary by large amounts.
 
 The code and plot below shows the [nice] effect of the transformation.
 
@@ -260,10 +201,7 @@ of the transformation f \(n\) = log2 \(n/s1 \)
 Graph showing variance stabilizing transformation for sample 1 (blue) and  
 of the transformation f (n) = log2 (n/s1 ) (black)
 
-The x axis is the square root of variance over the mean for all samples, so
-this will naturally included variance due to the treatment. The goal here is
-to flattern the curve so that there is consistent variance across the read
-counts, and that is what we got.
+The x axis is the square root of variance over the mean for all samples, so this will naturally included variance due to the treatment. The goal here is to flattern the curve so that there is consistent variance across the read counts, and that is what we got.
 
 
 
@@ -277,12 +215,7 @@ counts, and that is what we got.
 
 ![deseq2_stabilizing_comp](./img/deseq2_stabilizing_comp1.png)
 
-This interesting plot shows the standard deviation across all samples against
-the mean counts using three different methods of transformation. With this
-data you can see that the shifted logarithm method (left) seems to do pretty
-badly at for low count genes, with both regularized log (center) and DESeqs
-variance stabilisation (right) doing a much better job across the entire
-dynamic range of counts.
+This interesting plot shows the standard deviation across all samples against the mean counts using three different methods of transformation. With this data you can see that the shifted logarithm method (left) seems to do pretty badly at for low count genes, with both regularized log (center) and DESeqs variance stabilisation (right) doing a much better job across the entire dynamic range of counts.
 
 For some reason, everyone loves a good heat map!
 
@@ -312,11 +245,7 @@ For some reason, everyone loves a good heat map!
 ![heatmaps](./img/deseq2_heatmaps.png)
 
 
-The above shows heatmaps for 30 most highly expressed genes (not necessarily
-the biggest fold change). The data is of raw counts (left), regularized log
-transformation (center) and from variance stabilizing transformation (right)
-and you can clearly see the effect of the transformation has by shrinking the
-variance so that we don’t get the squish effect shown in the left hand graph.
+The above shows heatmaps for 30 most highly expressed genes (not necessarily the biggest fold change). The data is of raw counts (left), regularized log transformation (center) and from variance stabilizing transformation (right) and you can clearly see the effect of the transformation has by shrinking the variance so that we don’t get the squish effect shown in the left hand graph.
 
 Now we calculate sample to sample distances so we can make a dendrogram to
 look at the clustering of samples.
@@ -342,16 +271,10 @@ look at the clustering of samples.
 
 ![dist_matrix](./img/dist_matrix.png)
 
-Although this result looks terrible, as we would expect samples to cluster by
-treatment, in this case I’m actually happy by this result. Why? Well this was
-actually a control experiment to show that slightly different (and
-unavoidable) experimental setup for the different samples, wasn’t responsible
-for the observed expression differences, so seeing that there is little
-treatment effect makes me happy. Remember, always *try* and do what Fisher
-tells us to, [replicate, randomised, block](https://web.archive.org/web/201603
-28234446/http://en.wikipedia.org/wiki/Design_of_experiments).
+Although this result looks terrible, as we would expect samples to cluster by treatment, in this case I’m actually happy by this result. Why? Well this was actually a control experiment to show that slightly different (and
+unavoidable) experimental setup for the different samples, wasn’t responsible for the observed expression differences, so seeing that there is little treatment effect makes me happy. Remember, always *try* and do what Fisher tells us to, [replicate, randomised, block](http://en.wikipedia.org/wiki/Design_of_experiments).
 
-Similarly the pca.
+Similarly the PCA.
 
 
 
@@ -368,8 +291,7 @@ Previously we talked about the cooks distance treatment of outliers, in that a
 gene is thrown away if one of its samples is deemed to be an outlier. You may
 not want this to happen so DESeq2 we can take a different approach by
 replacing the outlier value with one estimated value as predicted by the
-distribution using the [trimmed mean](https://web.archive.org/web/201603282344
-46/http://en.wikipedia.org/wiki/Truncated_mean) approach. DESeq2 recomends you
+distribution using the [trimmed mean](http://en.wikipedia.org/wiki/Truncated_mean) approach. DESeq2 recomends you
 only do this if you have several replicates per treatment, and indeed it
 automatically uses this feature if you have 7 or more replicates in your
 datatable.
@@ -388,9 +310,7 @@ datatable.
 
 In my case it didn’t really make much difference.
 
-Dispersion plot shows how the estimates are shrunk from the gene wise values
-(black dots) toward the fitted estimates, with the final values used in
-testing being the blue dots.
+Dispersion plot shows how the estimates are shrunk from the gene wise values (black dots) toward the fitted estimates, with the final values used in testing being the blue dots.
 
 
 
@@ -407,11 +327,7 @@ And a comparison of DeSeq1 vs DeSeq2 (left and right respectively):
 deseq2](./img/dispersion_estimages.png)
 
 
-Now independent filtering to remove any tests that have little chance of pass
-to reduce the number of tests we have to perform, thus reducing the effects of
-multiple testing error. (false discovery). You can see how many genes are
-rejected based on different values of alpha (FDR)
-
+Now independent filtering to remove any tests that have little chance of pass to reduce the number of tests we have to perform, thus reducing the effects of multiple testing error. (false discovery). You can see how many genes are rejected based on different values of alpha (FDR)
 
 
     #filtering threashold
@@ -443,15 +359,11 @@ threashold_ed.png)
 
 ![cooks distance](./img/cooks-distance.png)
 
-cooks distance
-
 Plot of the maximum Cook’s distance per gene over the rank of the Wald
 statistics for the condition.
 
 Here more about independent filtering. What it shows in genes with very low
-counts are unlikely to have a significant p-value due to excessive dispersion
-at the left side of the dynamic range of counts. The y-axis here is -log10, so
-bigger numbers are smaller p-values (better).
+counts are unlikely to have a significant p-value due to excessive dispersion at the left side of the dynamic range of counts. The y-axis here is -log10, so bigger numbers are smaller p-values (better).
 
 
 
@@ -466,12 +378,9 @@ bigger numbers are smaller p-values (better).
 
 ![deseq2_indep_filtering](./img/deseq2_indep_filtering.png)
 
-All those dots on the left hand side the graph represent failed tests due to
-very low count values, thus we can really just get rid of them to reduce our
-chance of making a type I error.
+All those dots on the left hand side the graph represent failed tests due to very low count values, thus we can really just get rid of them to reduce our chance of making a type I error.
 
-And again, you can see that only a few small (or no) p-values are discarded by
-the filtering. NOTE: You might only see blue lines [I’ve broken something??]
+And again, you can see that only a few small (or no) p-values are discarded by the filtering. NOTE: You might only see blue lines [I’ve broken something??]
 
 
 
@@ -490,12 +399,7 @@ the filtering. NOTE: You might only see blue lines [I’ve broken something??]
 
 ![deseq2 pvals and mulittest](./img/deseq2-pvals-and-mulittest.png)  
 
-The graph on the left ranks the p-values from smallest to biggest (x-axis) and
-plots them. The black line is the actual p-value numbers (remember only about
-23 genes had a p-value lower than 0.05). The red line has a slope that
-represents the number of tests divided by the false discovery rate (0.1). The
-idea here is the FDR is controlled at the 0.1% value for all tests that occur
-to the left of the right-most intersection of the black and red line.
+The graph on the left ranks the p-values from smallest to biggest (x-axis) and plots them. The black line is the actual p-value numbers (remember only about 23 genes had a p-value lower than 0.05). The red line has a slope that represents the number of tests divided by the false discovery rate (0.1). The idea here is the FDR is controlled at the 0.1% value for all tests that occur to the left of the right-most intersection of the black and red line.
 
 The code for the right hand plot above.
 
@@ -554,27 +458,23 @@ Stefan for pointing them out]
 
 ### *Related*
 
-[How to use DESeq to analyse RNAseq data](http://dwheelerau.com/2013/04/15
-/how-to-use-deseq-to-analyse-rnaseq-data/)In "Bioinformatic's"
+- [How to use DESeq to analyse RNAseq data](http://dwheelerau.com/2013/04/15
+/how-to-use-deseq-to-analyse-rnaseq-data/)
 
-[Pandas, matplotlib and Ipython - all you need for great data
-anaylsis](http://dwheelerau.com/2012/08/10/pandas-matplotlib-and-ipython-all-
-you-need-for-great-data-anaylsis/)In "Bioinformatic's"
+- [Pandas, matplotlib and Ipython - all you need for great data
+anaylsis](http://dwheelerau.com/2012/08/10/pandas-matplotlib-and-ipython-all-you-need-for-great-data-anaylsis/)
 
-[Setting up a Lubuntu virtual machine with virtual box [and get guest
+- [Setting up a Lubuntu virtual machine with virtual box [and get guest
 additions working]](http://dwheelerau.com/2014/01/25/setting-up-a-lubuntu-
-virtual-machine-with-virtual-box/)In "Linux"
+virtual-machine-with-virtual-box/)
 
-This entry was posted in [Bioinformatic's](https://web.archive.org/web/2016032
-8234446/http://dwheelerau.com/category/bioinformatics/), [Programing](https://
-web.archive.org/web/20160328234446/http://dwheelerau.com/category/programing/)
-and tagged [DESeq](https://web.archive.org/web/20160328234446/http://dwheelera
-u.com/tag/deseq/), [DESeq2](https://web.archive.org/web/20160328234446/http://
-dwheelerau.com/tag/deseq2/), [gene expression](https://web.archive.org/web/201
-60328234446/http://dwheelerau.com/tag/gene-expression/),
-[R](https://web.archive.org/web/20160328234446/http://dwheelerau.com/tag/r/),
-[RNAseq](https://web.archive.org/web/20160328234446/http://dwheelerau.com/tag/
-rnaseq/) by [Dave Wheeler](https://web.archive.org/web/20160328234446/http://d
-wheelerau.com/author/dwheelerau/). Bookmark the [permalink](https://web.archiv
-e.org/web/20160328234446/http://dwheelerau.com/2014/02/17/how-to-use-deseq2
--to-analyse-rnaseq-data/).
+
+-------
+This entry was posted in [Bioinformatic's](http://dwheelerau.com/category/bioinformatics/), [Programing](http://dwheelerau.com/category/programing/)
+and tagged [DESeq](http://dwheelera
+u.com/tag/deseq/), [DESeq2](http://dwheelerau.com/tag/deseq2/), [gene expression](http://dwheelerau.com/tag/gene-expression/),
+[R](http://dwheelerau.com/tag/r/), [RNAseq](http://dwheelerau.com/tag/
+rnaseq/) by [Dave Wheeler](http://d
+wheelerau.com/author/dwheelerau/).
+
+------
