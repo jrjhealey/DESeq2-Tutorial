@@ -25,16 +25,14 @@ http://dwheelerau.com/2014/02/17/how-to-use-deseq2-to-analyse-rnaseq-data/
 Posted on [February 17, 2014](http://dwheelerau.com/2014/02/17/how-to-use-deseq2-to-analyse-rnaseq-data/) by [Dave Wheeler](http://dwheelerau.com/author/dwheelerau/)
 
 __News:__ *My colleagues at NZGL have developed an open source R based GUI for generating plots using cuffdiff data. One for deseq2 will be available soon!
-Feel free to [check it out](https://github.com/NZGL/shiny_cuffdiff) and get back to us with any  [suggestions](https://github.com/NZGL/shiny_cuffdiff
-/issues)*. *Only requires [R-studio](https://github.com/NZGL/shiny_cuffdiff)*.
+Feel free to [check it out](https://github.com/NZGL/shiny_cuffdiff) and get back to us with any  [suggestions](https://github.com/NZGL/shiny_cuffdiff/issues)*. *Only requires [R-studio](https://github.com/NZGL/shiny_cuffdiff)*.
 
 There is only one thing better than DESeq and thats DESeq2! The [updated version](http://www.bioconductor.org/packages/2.13/bioc/html/DESeq2.html) is out and I’m keen to give it a whirl. Like with my old [DESeq post](http://dwheelerau.com/2013/04/15/how-to-use-deseq-to-analyse-rnaseq-data/), once again I am really just following the excellent [DESeq2 manual](http://www.bioconductor.org/packages/2.13/bioc/vignettes/DESeq2/inst/doc/DESeq2.pdf), thanks again to the authors for the great
 documentation!
 
 Just a quick warning that I haven’t tested this workflow extensively, let me know if things don’t work. Also, DESeq2 is new so some of the function might have changed, so if you have problems makes sure you check what version you are using versus what I used (see sessionInfo below).
 
-The files I used for this are found [here](https://drive.google.com/file/d/0B6eVTdUN1IlwdnNiMkpvV1FWMUk/edit?usp=sharing) if you want to give them a go or follow along. I’ve already got a [blow by blow run through on how to do use DESeq](http://dwheelerau.com/2013/04/15/how-to-use-deseq-to-analyse-
-rnaseq-data/) and much of that applies to the new package, so here I’ll just concentrate on some DESeq2 specific stuff as well as all the graphs. I’ve included some side by side comparisons between DESeq and DESeq2.
+The files I used for this are found [here](https://drive.google.com/file/d/0B6eVTdUN1IlwdnNiMkpvV1FWMUk/edit?usp=sharing) if you want to give them a go or follow along. I’ve already got a [blow by blow run through on how to do use DESeq](http://dwheelerau.com/2013/04/15/how-to-use-deseq-to-analyse-rnaseq-data/) and much of that applies to the new package, so here I’ll just concentrate on some DESeq2 specific stuff as well as all the graphs. I’ve included some side by side comparisons between DESeq and DESeq2.
 
 Installing is easy:
 
