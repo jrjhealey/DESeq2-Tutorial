@@ -24,13 +24,9 @@ http://dwheelerau.com/2014/02/17/how-to-use-deseq2-to-analyse-rnaseq-data/
 
 Posted on [February 17, 2014](http://dwheelerau.com/2014/02/17/how-to-use-deseq2-to-analyse-rnaseq-data/) by [Dave Wheeler](http://dwheelerau.com/author/dwheelerau/)
 
-__News:__ *My colleagues at NZGL have developed an open source R based GUI for
-generating plots using cuffdiff data. One for deseq2 will be available soon!
-Feel free to [check it out](https:/
-/github.com/NZGL/shiny_cuffdiff) and get back to us with any [suggestions](htt
-ps://web.archive.org/web/20160328234446/https://github.com/NZGL/shiny_cuffdiff
-/issues)*. *Only requires [R-studio](https://web.archive.org/web/2016032823444
-6/https://github.com/NZGL/shiny_cuffdiff)*.
+__News:__ *My colleagues at NZGL have developed an open source R based GUI for generating plots using cuffdiff data. One for deseq2 will be available soon!
+Feel free to [check it out](https://github.com/NZGL/shiny_cuffdiff) and get back to us with any  [suggestions](https://github.com/NZGL/shiny_cuffdiff
+/issues)*. *Only requires [R-studio](https://github.com/NZGL/shiny_cuffdiff)*.
 
 There is only one thing better than DESeq and thats DESeq2! The [updated version](http://www.bioconductor.org/packages/2.13/bioc/html/DESeq2.html) is out and I’m keen to give it a whirl. Like with my old [DESeq post](http://dwheelerau.com/2013/04/15/how-to-use-deseq-to-analyse-rnaseq-data/), once again I am really just following the excellent [DESeq2 manual](http://www.bioconductor.org/packages/2.13/bioc/vignettes/DESeq2/inst/doc/DESeq2.pdf), thanks again to the authors for the great
 documentation!
